@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    background: linear-gradient(rgba(2, 2, 2, 0.7), rgba(2, 2, 2, 0.7)), url(https://phonoteka.org/uploads/posts/2021-06/1624617579_18-phonoteka_org-p-oboi-priroda-temnie-krasivo-18.jpg) fixed center;
+    color: #fff;
+}
+
+.block {
+    height: 100%;
+    width: 100%;
+}
+
+.ml-1 {
+    margin-left: .5rem!important;
+}
+
+header .form-control {
+    margin-right: .5rem!important;
+}
+
+.title {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 15px;
+    color: white;
+}
+label {
+    font-size: 20px!important;
+    font-weight: bold!important;
+    text-transform: uppercase;
+}
+button {
+    font-size: 22px!important;
+    text-transform: uppercase;
+}
+
+header button {
+    font-size: 16px;
+}
+
+.save,
+.delete,
+.edit {
+    border-radius: 10px;
+}
+
+thead {
+    text-transform: uppercase;
+}
+
+.delete,
+.edit {
+    font-size: 18px;
+}
+
+input:invalid {
+    border: 2px solid red;
+}
+
+h1 {
+    margin: 10px 0 0 0;
+}
+
+input {
+    text-transform: capitalize;
+    border: white;
+}
+
+td {
+    text-transform: capitalize;
+}
+
+.change {
+    display: block;
+}
+
+.bi-trash,
+.bi-pencil-square {
+    margin-top: -2px;
+}
+
+.mr-1 {
+    margin-right: 3px;
+}
+
+.mr-3 {
+    margin-right: 15px;
+}
+
+.mr-4 {
+    margin-right: 30px;
+}
+
+td input {
+    border: none;
+}
+
+#count {
+    max-width: 200px!important;
+}
+
+#download {
+    text-decoration: none;
+    color: white;
+}
+
+select, option {
+    text-transform: capitalize;
+}
+
+
