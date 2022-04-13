@@ -112,7 +112,6 @@
                     <th>PASSPORT</th>
                     <th>Name</th>
                     <th>surname</th>
-                    <th>address</th>
                     <th>gender</th>
                     <th>Date of birthday</th>
                     <th>MANIPULATION BUTTONS</th>

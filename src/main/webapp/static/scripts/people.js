@@ -10,7 +10,6 @@ $(document).ready(function () {
                 {"data": "passport"},
                 {"data": "name"},
                 {"data": "surname"},
-                {"data": "address"},
                 {"data": "pol"},
                 {"data": "dobString"},
                 {
@@ -35,7 +34,9 @@ $(document).ready(function () {
         },
     )
 });
+$(document).ready(function () {
 
+})
 $( function() {
     $( ".dob" ).datepicker({
         defaultDate: -11789,
