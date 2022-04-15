@@ -1,12 +1,12 @@
 package aza.test.spring.testpeople.testpeople.web.requests;
 
 import aza.test.spring.testpeople.testpeople.web.dao.PersonDAO;
+import aza.test.spring.testpeople.testpeople.web.models.Country;
+import aza.test.spring.testpeople.testpeople.web.models.FindRegion;
 import aza.test.spring.testpeople.testpeople.web.models.Person;
+import aza.test.spring.testpeople.testpeople.web.models.Region;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +22,14 @@ public class TestRequest {
     }
 
     @GetMapping()
-    public @ResponseBody List<Person> test() {
+    public @ResponseBody
+    List<Person> test() {
         return personDAO.index();
     }
 
+    @GetMapping("/getCountry/{name}")
+    public @ResponseBody
+    List<FindRegion> test4(@PathVariable String name) {
+        return personDAO.getCIDByCName(name);
+    }
 }

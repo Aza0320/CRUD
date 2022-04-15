@@ -70,7 +70,8 @@ public class PeopleController {
         model.addAttribute("name", editPerson.getName());
         model.addAttribute("id", editPerson.getId());
         model.addAttribute("surname", editPerson.getSurname());
-        model.addAttribute("address", editPerson.getAddress());
+        model.addAttribute("country", editPerson.getCountry());
+        model.addAttribute("region", editPerson.getRegion());
         model.addAttribute("passport", editPerson.getPassport());
         model.addAttribute("sex", editPerson.getSex());
         model.addAttribute("dob", editPerson.getDobString());

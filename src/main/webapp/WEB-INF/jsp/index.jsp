@@ -58,24 +58,42 @@
             </div>
 
             <div class="input-group mb-3">
-                <form:label path="address" class="input-group-text">
-                    ADDRESS </form:label>
-                <select name="address" class="input-group-text">
-                    <option value="Toshkent">Toshkent</option>
+                <form:label path="country" class="input-group-text">
+                    COUNTRY </form:label>
+                <select onchange="pushOptions(this.value)" name="country" class="input-group-text" id="country">
+                    <option value="Toshkent shahar">Toshkent shahar</option>
                     <option value="Toshkent viloyati">Toshkent viloyati</option>
-                    <option value="Andijon">Andijon</option>
-                    <option value="Buxoro">Buxoro</option>
-                    <option value="Jizzax">Jizzax</option>
-                    <option value="Qashqadaryo">Qashqadaryo</option>
-                    <option value="Navoiy">Navoiy</option>
-                    <option value="Namangan">Namangan</option>
-                    <option value="Samarqand">Samarqand</option>
-                    <option value="Surxondaryo">Surxondaryo</option>
-                    <option value="Sirdaryo">Sirdaryo </option>
-                    <option value="Farg'ona">Farg'ona </option>
-                    <option value="Xorazm">Xorazm</option>
-                    <option value="Samarqand">Samarqand</option>
-                    <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+                    <option value="Andijon viloyati">Andijon viloyati</option>
+                    <option value="Buxoro viloyati">Buxoro viloyati</option>
+                    <option value="Jizzax viloyati">Jizzax viloyati</option>
+                    <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+                    <option value="Navoiy viloyati">Navoiy viloyati</option>
+                    <option value="Namangan viloyati">Namangan viloyati</option>
+                    <option value="Samarqand viloyati">Samarqand viloyati</option>
+                    <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+                    <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+                    <option value="Farg'ona viloyati">Farg'ona viloyati</option>
+                    <option value="Xorazm viloyati">Xorazm viloyati</option>
+                    <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3" id="rd">
+                <form:label path="region" class="input-group-text" id="rl">
+                    REGION </form:label>
+                <select name="region" class="input-group-text" id="region">
+                    <option value="Shayxontohur tumani">Shayxontohur tumanii</option>
+                    <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>
+                    <option value="Yunusobod tumani">Yunusobod tumanii</option>
+                    <option value="Chilonzor tumani">Chilonzor tumanii</option>
+                    <option value="Yashnobod tumani">Yashnobod tumanii</option>
+                    <option value="Olmazor tumani">Olmazor tumanii</option>
+                    <option value="Bektemir tumani">Bektemir tumanii</option>
+                    <option value="Yangihayot tumani">Yangihayot tumanii</option>
+                    <option value="Mirobod tumani">Mirobod tumanii</option>
+                    <option value="Yakkasaroy tumani">Yakkasaroy tumanii</option>
+                    <option value="Sergeli tumani">Sergeli tumanii</option>
+                    <option value="Uchtepa tumani">Uchtepa tumanii</option>
                 </select>
             </div>
 
@@ -108,11 +126,13 @@
             <table id="table" class="table table-light table-striped align-middle" style="width: 100%">
                 <thead class="table-dark align-middle">
                 <tr>
-                    <th>ID</th>
+                    <th>id</th>
                     <th>PASSPORT</th>
                     <th>Name</th>
                     <th>surname</th>
                     <th>gender</th>
+                    <th>country</th>
+                    <th>region</th>
                     <th>Date of birthday</th>
                     <th>MANIPULATION BUTTONS</th>
                 </tr>
@@ -172,6 +192,7 @@
 <script type="text/javascript"
         src="https://cdn.datatables.net/v/bs5/dt-1.11.5/b-2.2.2/b-colvis-2.2.2/datatables.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/scripts/people.js"></script>
+<script src="${pageContext.request.contextPath}/static/scripts/general.js"></script>
 
 </body>
 </html>

@@ -16,7 +16,8 @@ public class Person {
     private String name;
     private int id;
     private String surname;
-    private String address;
+    private String country;
+    private String region;
     private String sex;
     private Date doi;
     private Date doe;
@@ -25,12 +26,13 @@ public class Person {
     private String toDoe;
     private String toDoi;
 
-    public Person(String passport, String name, int id, String surname, String address, String sex, Date doi, Date doe, Date dob, String toDob, String toDoe, String toDoi) {
+    public Person(String passport, String name, int id, String surname, String country, String region, String sex, Date doi, Date doe, Date dob, String toDob, String toDoe, String toDoi) {
         this.passport = passport;
         this.name = name;
         this.id = id;
         this.surname = surname;
-        this.address = address;
+        this.country = country;
+        this.region = region;
         this.sex = sex;
         this.doi = doi;
         this.doe = doe;
@@ -51,12 +53,20 @@ public class Person {
         this.surname = surname;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCountry() {
+        return country;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getPol() {

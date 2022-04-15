@@ -55,7 +55,7 @@ public class PersonServices {
         listPerson.add("UZBEKISTAN");
         listPerson.add(person.getDobString());
         listPerson.add(person.getSex().toUpperCase(Locale.ROOT));
-        listPerson.add(person.getAddress());
+        listPerson.add(person.getCountry());
         listPerson.add(person.getDoiString());
         listPerson.add(person.getDoeString());
         listPerson.add("STATE PERSONALIZATION CENTRE");

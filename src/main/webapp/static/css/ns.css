@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    background: linear-gradient(rgba(2, 2, 2, 0.7), rgba(2, 2, 2, 0.7)), url(https://phonoteka.org/uploads/posts/2021-06/1624617579_18-phonoteka_org-p-oboi-priroda-temnie-krasivo-18.jpg) fixed center;
+    background: linear-gradient(rgba(2, 2, 2, 0.7), rgba(2, 2, 2, 0.7)), url(https://phonoteka.org/uploads/posts/2021-06/1624617579_18-phonoteka_org-p-oboi-priroda-temnie-krasivo-18.jpg) fixed center!important;
     color: #fff;
 }
 

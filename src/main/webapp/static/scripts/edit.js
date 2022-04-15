@@ -1,17 +1,9 @@
-$(function () {
-    $(".datepicker").datepicker({
-        dateFormat: "dd.mm.yy",
-        language: "ru",
-        showAnim: "clip",
-        showOtherMonths: true,
-        selectOtherMonths: true,
-        changeMonth: true,
-        changeYear: true
-    });
-});
-
+dp()
+pushOptions(document.getElementById("country").value)
 let inputG = document.getElementById("gender")
-let inputA = document.getElementById("address").value
+let countryJ = document.getElementById("country").value
+let region = document.getElementById("regionI").value
+
 let option = document.getElementsByTagName("option")
 for (let i = 0; i < 2; i++) {
     let text = "MALE";
@@ -22,8 +14,15 @@ for (let i = 0; i < 2; i++) {
         option[i].setAttribute("selected", "")
     }
 }
-for (let i = 2; i < option.length; i++) {
-    if (option[i].innerText === inputA) {
+for (let i = 2; i < 16; i++) {
+    if (option[i].innerText === countryJ) {
+        option[i].setAttribute("selected", "")
+        break;
+    }
+}
+
+for (let i = 16; i < option.length; i++) {
+    if (option[i].innerText === region) {
         option[i].setAttribute("selected", "")
         break;
     }

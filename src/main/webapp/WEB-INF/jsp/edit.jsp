@@ -51,27 +51,47 @@
                 </select>
             </div>
             <div class="input-group mb-3">
-                <form:label path="address" class="input-group-text">
-                    ADDRESS </form:label>
-                <input id="address" type="hidden" class="input-group-text " value="${address}"/>
-                <select name="address" class="input-group-text">
-                    <option value="Toshkent">Toshkent</option>
+                <form:label path="country" class="input-group-text">
+                    COUNTRY </form:label>
+                <input id="country" type="hidden" class="input-group-text " value="${country}"/>
+                <select onchange="pushOptions(this.value)" name="country" class="input-group-text">
+                    <option value="Toshkent shahar">Toshkent shahar</option>
                     <option value="Toshkent viloyati">Toshkent viloyati</option>
-                    <option value="Andijon">Andijon</option>
-                    <option value="Buxoro">Buxoro</option>
-                    <option value="Jizzax">Jizzax</option>
-                    <option value="Qashqadaryo">Qashqadaryo</option>
-                    <option value="Navoiy">Navoiy</option>
-                    <option value="Namangan">Namangan</option>
-                    <option value="Samarqand">Samarqand</option>
-                    <option value="Surxondaryo">Surxondaryo</option>
-                    <option value="Sirdaryo">Sirdaryo </option>
-                    <option value="Farg'ona">Farg'ona </option>
-                    <option value="Xorazm">Xorazm</option>
-                    <option value="Samarqand">Samarqand</option>
-                    <option value="Qoraqalpog'iston Respublikasi">Qoraqalpog'iston Respublikasi</option>
+                    <option value="Andijon viloyati">Andijon viloyati</option>
+                    <option value="Buxoro viloyati">Buxoro viloyati</option>
+                    <option value="Jizzax viloyati">Jizzax viloyati</option>
+                    <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+                    <option value="Navoiy viloyati">Navoiy viloyati</option>
+                    <option value="Namangan viloyati">Namangan viloyati</option>
+                    <option value="Samarqand viloyati">Samarqand viloyati</option>
+                    <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+                    <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+                    <option value="Farg'ona viloyati">Farg'ona viloyati</option>
+                    <option value="Xorazm viloyati">Xorazm viloyati</option>
+                    <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>
                 </select>
             </div>
+
+            <div class="input-group mb-3" id="rd">
+                <form:label path="region" class="input-group-text">
+                    REGION </form:label>
+                <input id="regionI" type="hidden" class="input-group-text " value="${region}"/>
+                <select name="region" class="input-group-text" id="region">
+                    <option value="Shayxontohur tumani">Shayxontohur tumanii</option>
+                    <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>
+                    <option value="Yunusobod tumani">Yunusobod tumanii</option>
+                    <option value="Chilonzor tumani">Chilonzor tumanii</option>
+                    <option value="Yashnobod tumani">Yashnobod tumanii</option>
+                    <option value="Olmazor tumani">Olmazor tumanii</option>
+                    <option value="Bektemir tumani">Bektemir tumanii</option>
+                    <option value="Yangihayot tumani">Yangihayot tumanii</option>
+                    <option value="Mirobod tumani">Mirobod tumanii</option>
+                    <option value="Yakkasaroy tumani">Yakkasaroy tumanii</option>
+                    <option value="Sergeli tumani">Sergeli tumanii</option>
+                    <option value="Uchtepa tumani">Uchtepa tumanii</option>
+                </select>
+            </div>
+
             <div class="input-group mb-3">
                 <form:label path="toDoi" class="input-group-text">
                     DATE OF ISSUE </form:label>
@@ -90,6 +110,7 @@
     </div>
 </div>
 
+<script src="${pageContext.request.contextPath}/static/scripts/general.js"></script>
 <script src="${pageContext.request.contextPath}/static/scripts/edit.js"></script>
 
 </body>
