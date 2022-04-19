@@ -20,11 +20,18 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
+    private int currentPage = 0;
+    private String gender;
+    private String country;
+    private String region;
+    private Date dob;
+
 
     @Autowired
     public PeopleController(PersonDAO personDAO) {
@@ -32,7 +39,12 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index(@ModelAttribute("person") Person person) {
+    public String index(@ModelAttribute("person") Person person, Model model) {
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("findG", gender);
+        model.addAttribute("findC", country);
+        model.addAttribute("findR", region);
+        model.addAttribute("findD", dob);
         return "/index";
     }
 
@@ -104,5 +116,31 @@ public class PeopleController {
     byte[] getImg(@PathVariable String id) throws Exception {
         Person person = personDAO.getPerson(Integer.parseInt(id));
         return PersonServices.createImg(PersonServices.createPDF(person), person);
+    }
+
+    @PostMapping("/currentPage")
+    public String changePage(@ModelAttribute("person") Person person) {
+        currentPage = Integer.parseInt(person.getCountry());
+        return "redirect:/people";
+    }
+
+    @PostMapping("/find")
+    public String find(@ModelAttribute("person") Person person) {
+        gender = person.getSex();
+        region = person.getRegion();
+        country = person.getCountry();
+        dob = person.getDob();
+
+        return "redirect:/people";
+    }
+
+    @PostMapping("/cancel")
+    public String cancel(@ModelAttribute("person") Person person) {
+        gender = "";
+        region = "";
+        country = "";
+        dob = null;
+
+        return "redirect:/people";
     }
 }

@@ -19,7 +19,7 @@
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <body>
 
-<div class="container my-5">
+<div class="m-5">
 
     <%--    Save Form   --%>
     <div class="forma">
@@ -120,11 +120,80 @@
         <h1>INFORMATION OF PEOPLE</h1>
     </div>
 
+        <input type="hidden" value="${findG}" id="findG">
+        <input type="hidden" value="${findC}" id="findC">
+        <input type="hidden" value="${findR}" id="findR">
+        <input type="hidden" value="${findD}" id="findD">
+
     <%--    Table Form  --%>
     <div class="tablica text-center">
-        <form:form method="post" action="/people/edit" modelAttribute="person">
+        <form:form method="post" action="/people/find" modelAttribute="person">
             <table id="table" class="table table-light table-striped align-middle" style="width: 100%">
-                <thead class="table-dark align-middle">
+                <thead class="align-middle">
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <select name="sex">
+                            <option value=""></option>
+                            <option value="M">MALE</option>
+                            <option value="W">FEMALE</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select onchange="pushOptions(this.value)" name="country" id="countryS">
+                            <option value=""></option>
+                            <option value="Toshkent shahar">Toshkent shahar</option>
+                            <option value="Toshkent viloyati">Toshkent viloyati</option>
+                            <option value="Andijon viloyati">Andijon viloyati</option>
+                            <option value="Buxoro viloyati">Buxoro viloyati</option>
+                            <option value="Jizzax viloyati">Jizzax viloyati</option>
+                            <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>
+                            <option value="Navoiy viloyati">Navoiy viloyati</option>
+                            <option value="Namangan viloyati">Namangan viloyati</option>
+                            <option value="Samarqand viloyati">Samarqand viloyati</option>
+                            <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>
+                            <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>
+                            <option value="Farg'ona viloyati">Farg'ona viloyati</option>
+                            <option value="Xorazm viloyati">Xorazm viloyati</option>
+                            <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>
+                        </select>
+                    </th>
+                    <th>
+                        <select name="region" id="regionS">
+                            <option value=""></option>
+                            <option value="Shayxontohur tumani">Shayxontohur tumanii</option>
+                            <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>
+                            <option value="Yunusobod tumani">Yunusobod tumanii</option>
+                            <option value="Chilonzor tumani">Chilonzor tumanii</option>
+                            <option value="Yashnobod tumani">Yashnobod tumanii</option>
+                            <option value="Olmazor tumani">Olmazor tumanii</option>
+                            <option value="Bektemir tumani">Bektemir tumanii</option>
+                            <option value="Yangihayot tumani">Yangihayot tumanii</option>
+                            <option value="Mirobod tumani">Mirobod tumanii</option>
+                            <option value="Yakkasaroy tumani">Yakkasaroy tumanii</option>
+                            <option value="Sergeli tumani">Sergeli tumanii</option>
+                            <option value="Uchtepa tumani">Uchtepa tumanii</option>
+                        </select>
+                    </th>
+                    <th>
+                        <input name="toDob" data-provide="datepicker" style="text-align: center" class="datepicker"
+                               placeholder="Select" value=""/>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-evenly">
+                            <button class="btn btn-outline-primary find" onclick="findA(this)" type="submit">
+                                FIND
+                            </button>
+
+                            <button class="btn btn-outline-dark find" type="button">
+                                Cancel
+                            </button>
+                        </div>
+                    </th>
+                </tr>
                 <tr>
                     <th>id</th>
                     <th>PASSPORT</th>
@@ -136,8 +205,13 @@
                     <th>Date of birthday</th>
                     <th>MANIPULATION BUTTONS</th>
                 </tr>
-                <form:hidden value="" path="id" id="edit"/>
                 </thead>
+
+                <form:form method="post" action="/people/edit" modelAttribute="person">
+                    <tbody>
+                    </tbody>
+                    <form:hidden value="" path="id" id="edit"/>
+                </form:form>
             </table>
         </form:form>
     </div>
@@ -184,6 +258,78 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+    <input type="hidden" value="${currentPage}" id="currentPage">
+
+    <form:form method="post" action="/people/currentPage" modelAttribute="person">
+        <form:hidden path="country" value="" id="page"/>
+        <nav aria-label="Page">
+            <ul class="pagination d-flex justify-content-end">
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit" id="active">1</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">2</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">3</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">4</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">5</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">6</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">7</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">8</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">9</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">10</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">11</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">12</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">13</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">14</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">15</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">16</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">17</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">18</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">19</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn" type="submit">20</button>
+                </li>
+            </ul>
+        </nav>
+    </form:form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

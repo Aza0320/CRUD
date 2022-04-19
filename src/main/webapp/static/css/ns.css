@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    background: linear-gradient(rgba(2, 2, 2, 0.7), rgba(2, 2, 2, 0.7)), url(https://phonoteka.org/uploads/posts/2021-06/1624617579_18-phonoteka_org-p-oboi-priroda-temnie-krasivo-18.jpg) fixed center!important;
+    background: linear-gradient(rgba(1, 1, 1, 0.8), rgba(1, 1, 1, 0.8)), url(https://catherineasquithgallery.com/uploads/posts/2021-02/1612755608_46-p-goluboi-fon-priroda-69.jpg) fixed center !important;
     color: #fff;
 }
 
@@ -11,11 +11,11 @@ body {
 }
 
 .ml-1 {
-    margin-left: .5rem!important;
+    margin-left: .5rem !important;
 }
 
 header .form-control {
-    margin-right: .5rem!important;
+    margin-right: .5rem !important;
 }
 
 .title {
@@ -25,13 +25,15 @@ header .form-control {
     margin-bottom: 15px;
     color: white;
 }
+
 label {
-    font-size: 20px!important;
-    font-weight: bold!important;
+    font-size: 20px !important;
+    font-weight: bold !important;
     text-transform: uppercase;
 }
+
 button {
-    font-size: 22px!important;
+    font-size: 22px !important;
     text-transform: uppercase;
 }
 
@@ -97,7 +99,7 @@ td input {
 }
 
 #count {
-    max-width: 200px!important;
+    max-width: 200px !important;
 }
 
 #download {
@@ -108,5 +110,24 @@ td input {
 select, option {
     text-transform: capitalize;
 }
+
+.my-btn {
+    background-color: rgb(199, 15, 15) !important;
+    color: white !important;
+    border-color: rgb(199, 15, 15) !important;
+}
+
+
+#active {
+    background-color: rebeccapurple!important;
+    border-color: rebeccapurple !important;
+    color: white !important;
+}
+
+.find {
+    font-size: 18px!important;
+}
+
+
 
 
