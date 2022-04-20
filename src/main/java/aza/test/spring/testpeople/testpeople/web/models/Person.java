@@ -106,7 +106,11 @@ public class Person {
     }
 
     public String getDobString() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(dob);
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").format(dob);
+        } catch (Exception ignored) {
+            return "";
+        }
     }
 
     public String getDoeString() {
@@ -115,14 +119,6 @@ public class Person {
 
     public String getDoiString() {
         return new SimpleDateFormat("dd.MM.yyyy").format(doi);
-    }
-
-    public void toDoe(String doe) throws ParseException {
-        this.dob = new SimpleDateFormat("dd.MM.yyyy").parse(doe);;
-    }
-
-    public void toDoi(String doi) throws ParseException {
-        this.dob = new SimpleDateFormat("dd.MM.yyyy").parse(doi);;
     }
 
     public void setDob(Date dob) {

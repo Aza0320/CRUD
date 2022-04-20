@@ -1,34 +1,48 @@
-function pushOptions(country) {
-    if (country === "Toshkent shahar") {
-        country = "Toshkentc1"
-    } else if (country === "Qoraqalpog'iston Resp.") {
-        country = "Qoraqalpog'istonR1"
-    } else {
-        country = country.split(" ")[0] + "v1"
-    }
+function pushOptions(country, region, to) {
+    if (country !== "") {
+        if (country === "Toshkent shahar") {
+            country = "Toshkentc1"
+        } else if (country === "Qoraqalpog'iston Resp.") {
+            country = "Qoraqalpog'istonR1"
+        } else {
+            country = country.split(" ")[0] + "v1"
+        }
 
-    $.getJSON("http://localhost:8080/testAza/getCountry/" + country, function (data) {
-        let optionAR = []
-        let select = document.getElementById("region")
-        select.remove()
+        $.getJSON("http://localhost:8080/testAza/getCountry/" + country, function (data) {
+            let optionAR = []
+            let select = document.getElementById(region)
+            select.remove()
 
-        $.each(data, function (key, val) {
-            let region = []
-            region.push(Object.values(val)[3])
-
-            for (let j = 0; j < region.length; j++) {
-                optionAR.push(
-                    "<option value=\"" + region[j] + "\">" + region [j] + "</option>" + "\n")
+            let cl
+            if (region === "regionS") {
+                cl = ""
+                optionAR.push("<option value=\"\"></option>")
+            } else {
+                cl = "input-group-text"
             }
-        })
 
-        $("<select>", {
-            "class": "input-group-text",
-            "name": "region",
-            "id": "region",
-            html: optionAR.join("")
-        }).appendTo("#rd")
-    })
+            $.each(data, function (key, val) {
+                let region = []
+                region.push(Object.values(val)[3])
+
+                for (let j = 0; j < region.length; j++) {
+                    optionAR.push(
+                        "<option value=\"" + region[j] + "\">" + region [j] + "</option>" + "\n")
+                }
+            })
+
+            $("<select>", {
+                "class": cl,
+                "name": "region",
+                "id": region,
+                html: optionAR.join("")
+            }).appendTo(to)
+        })
+    } else {
+        let select = document.getElementById(region)
+        select.className = "ui-state-disabled"
+        select.value = ""
+    }
 }
 
 function dp() {

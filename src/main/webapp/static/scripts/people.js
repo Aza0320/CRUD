@@ -1,16 +1,38 @@
 // let currentPage = document.getElementById("currentPage").innerText
 let currentPage = document.getElementById("currentPage")
 
-let li = document.querySelectorAll("li.page-item")
-for (let i = 0; i < li.length; i++) {
-    if (li[i].innerText === currentPage.value) {
+$(document).ready(function () {
+    let pagination = document.getElementById("pagination")
+    if (currentPage.value % 10 == 0) {
+        pagination.remove()
+        let arr = []
+        for (let i = 0; i < 11; i++) {
+            let page = Number(currentPage.value) + i - 4
+            arr.push("<li class=\"page-item\" onclick=\"pagination(this)\">" +
+                "<button class=\"page-link my-btn\" type=\"button\">" + page + "</button>" +
+                "</li>")
+        }
+
+        $("<ul>", {
+            "class": "pagination d-flex justify-content-end",
+            "id": "pagination",
+            html: arr.join("")
+        }).appendTo("#nav")
+    } else {
         let btn = document.querySelector("#active")
         btn.id = ""
-        btn.className = "page-link my-btn"
-        let active = li[i].children[0]
-        active.id = "active"
     }
-}
+
+    let li = document.querySelectorAll("li.page-item")
+    for (let i = 0; i < li.length; i++) {
+        if (li[i].innerText === currentPage.value) {
+            let active = li[i].children[0]
+            active.id = "active"
+        }
+    }
+})
+
+
 $(document).ready(dt());
 
 function dt() {
@@ -18,10 +40,10 @@ function dt() {
     let c = document.getElementById("findC").value
     let d = document.getElementById("findD").value
     let r = document.getElementById("findR").value
-    let list = {}
+    let allParam;
     let option = document.querySelectorAll("th select option")
     if (g !== "") {
-        list['gender'] = g
+        allParam = g + ";"
         let text
         if (g === "M") text = "MALE"
         else text = "FEMALE"
@@ -30,41 +52,23 @@ function dt() {
                 option[i].setAttribute("selected", "")
             }
         }
-    }
-    if (c !== "") {
-        list['country'] = c
-    }
-    if (d !== "") {
-        list['date'] = d
-    }
-    if (r !== "") {
-        list['region'] = r
-    }
+    } else allParam = "---;"
 
-    let keys = Object.keys(list)
-    console.log(keys)
-    console.log(list)
-    console.log(g)
+    if (c !== "") {
+        allParam = split(allParam, c)
+    } else allParam += "---;"
+
+    if (r !== "") {
+        allParam = split(allParam, r)
+    } else allParam += "---;"
+
+    if (d !== "") {
+        allParam += d + ";"
+    } else allParam += "---;"
 
     let offset = 100 * currentPage.value
     let next = 100
-    let url = "http://localhost:8080/testAza/getTest" + keys.length +"?offset=" + offset + "&next=" + next
-
-    switch (keys.length) {
-        case 1:
-            url += "&" + keys[0] + "=" + list[keys[0]]
-            break
-        case 2:
-            url += "&" + keys[0] + "=" + list[keys[0]] + "&" + keys[1] + "=" + list[keys[1]]
-            break
-        case 3:
-            url += "&" + keys[0] + "=" + list[keys[0]] + "&" + keys[1] + "=" + list[keys[1]] + keys[2] + "=" + list[keys[2]]
-            break
-        case 4:
-            url += "&" + keys[0] + "=" + list[keys[0]] + "&" + keys[1] + "=" + list[keys[1]] + keys[2] + "=" + list[keys[2]] + keys[3] + "=" + list[keys[3]]
-    }
-
-    console.log(url)
+    let url = "http://localhost:8080/testAza/getTest?offset=" + offset + "&next=" + next + "&allParam=" + allParam
 
     $('#table').DataTable({
             "scrollX": false,
@@ -114,6 +118,15 @@ function dt() {
     )
 }
 
+function split(allParam, text) {
+    let arr = [text.split(" ")]
+
+    for (let i = 0; i < arr.length; i++) {
+        allParam += arr[i]
+    }
+    return allParam + ";"
+}
+
 $(function () {
     $(".dob").datepicker({
         defaultDate: -11789,
@@ -159,3 +172,4 @@ function pagination(n) {
 
     input.setAttribute("value", page)
 }
+

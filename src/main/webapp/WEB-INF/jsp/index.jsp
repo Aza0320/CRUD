@@ -60,7 +60,7 @@
             <div class="input-group mb-3">
                 <form:label path="country" class="input-group-text">
                     COUNTRY </form:label>
-                <select onchange="pushOptions(this.value)" name="country" class="input-group-text" id="country">
+                <select onchange="pushOptions(this.value, 'region', '#rd')" name="country" class="input-group-text" id="country">
                     <option value="Toshkent shahar">Toshkent shahar</option>
                     <option value="Toshkent viloyati">Toshkent viloyati</option>
                     <option value="Andijon viloyati">Andijon viloyati</option>
@@ -143,7 +143,7 @@
                         </select>
                     </th>
                     <th>
-                        <select onchange="pushOptions(this.value)" name="country" id="countryS">
+                        <select onchange="pushOptions(this.value, 'regionS', '#th')" name="country" id="countryS">
                             <option value=""></option>
                             <option value="Toshkent shahar">Toshkent shahar</option>
                             <option value="Toshkent viloyati">Toshkent viloyati</option>
@@ -161,21 +161,21 @@
                             <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>
                         </select>
                     </th>
-                    <th>
-                        <select name="region" id="regionS">
+                    <th id="th">
+                        <select class="ui-state-disabled" name="region" id="regionS">
                             <option value=""></option>
-                            <option value="Shayxontohur tumani">Shayxontohur tumanii</option>
+                            <option value="Shayxontohur tumani">Shayxontohur tumani</option>
                             <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>
-                            <option value="Yunusobod tumani">Yunusobod tumanii</option>
-                            <option value="Chilonzor tumani">Chilonzor tumanii</option>
-                            <option value="Yashnobod tumani">Yashnobod tumanii</option>
-                            <option value="Olmazor tumani">Olmazor tumanii</option>
-                            <option value="Bektemir tumani">Bektemir tumanii</option>
-                            <option value="Yangihayot tumani">Yangihayot tumanii</option>
-                            <option value="Mirobod tumani">Mirobod tumanii</option>
-                            <option value="Yakkasaroy tumani">Yakkasaroy tumanii</option>
-                            <option value="Sergeli tumani">Sergeli tumanii</option>
-                            <option value="Uchtepa tumani">Uchtepa tumanii</option>
+                            <option value="Yunusobod tumani">Yunusobod tumani</option>
+                            <option value="Chilonzor tumani">Chilonzor tumani</option>
+                            <option value="Yashnobod tumani">Yashnobod tumani</option>
+                            <option value="Olmazor tumani">Olmazor tumani</option>
+                            <option value="Bektemir tumani">Bektemir tumani</option>
+                            <option value="Yangihayot tumani">Yangihayot tumani</option>
+                            <option value="Mirobod tumani">Mirobod tumani</option>
+                            <option value="Yakkasaroy tumani">Yakkasaroy tumani</option>
+                            <option value="Sergeli tumani">Sergeli tumani</option>
+                            <option value="Uchtepa tumani">Uchtepa tumani</option>
                         </select>
                     </th>
                     <th>
@@ -184,7 +184,7 @@
                     </th>
                     <th>
                         <div class="d-flex justify-content-evenly">
-                            <button class="btn btn-outline-primary find" onclick="findA(this)" type="submit">
+                            <button class="btn btn-outline-primary find" type="submit">
                                 FIND
                             </button>
 
@@ -265,9 +265,9 @@
 
     <form:form method="post" action="/people/currentPage" modelAttribute="person">
         <form:hidden path="country" value="" id="page"/>
-        <nav aria-label="Page">
-            <ul class="pagination d-flex justify-content-end">
-                <li class="page-item" onclick="pagination(this)">
+        <nav aria-label="Page" id="nav">
+            <ul class="pagination d-flex justify-content-end" id="pagination">
+                <li class="page-item" onclick="pagination(this)" id="startPag">
                     <button class="page-link my-btn" type="submit" id="active">1</button>
                 </li>
                 <li class="page-item" onclick="pagination(this)">
@@ -280,7 +280,7 @@
                     <button class="page-link my-btn" type="submit">4</button>
                 </li>
                 <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">5</button>
+                    <button class="page-link my-btn" type="button">5</button>
                 </li>
                 <li class="page-item" onclick="pagination(this)">
                     <button class="page-link my-btn" type="submit">6</button>
@@ -294,38 +294,14 @@
                 <li class="page-item" onclick="pagination(this)">
                     <button class="page-link my-btn" type="submit">9</button>
                 </li>
-                <li class="page-item" onclick="pagination(this)">
+                <li class="page-item" onclick="pagination(this); changePages()">
                     <button class="page-link my-btn" type="submit">10</button>
                 </li>
                 <li class="page-item" onclick="pagination(this)">
+                    <button class="page-link my-btn ui-checkboxradio-disabled" type="button">...</button>
+                </li>
+                <li class="page-item" onclick="pagination(this)" id="endPag">
                     <button class="page-link my-btn" type="submit">11</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">12</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">13</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">14</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">15</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">16</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">17</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">18</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">19</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">20</button>
                 </li>
             </ul>
         </nav>

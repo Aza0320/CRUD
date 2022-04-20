@@ -26,11 +26,11 @@ import java.util.Date;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
-    private int currentPage = 0;
+    private int currentPage = 1;
     private String gender;
     private String country;
     private String region;
-    private Date dob;
+    private String dob;
 
 
     @Autowired
@@ -129,7 +129,7 @@ public class PeopleController {
         gender = person.getSex();
         region = person.getRegion();
         country = person.getCountry();
-        dob = person.getDob();
+        dob = person.getDobString();
 
         return "redirect:/people";
     }

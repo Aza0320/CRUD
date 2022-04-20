@@ -6,8 +6,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Locale;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Component
 public class PersonDAO {
@@ -23,41 +24,53 @@ public class PersonDAO {
         return jdbcTemplate.query("SELECT * FROM Person order by id", new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public List<Test> getTest(int offset, int next, String sex, String country, String region, String dob) {
-        return jdbcTemplate.query("SELECT * FROM Test Where sex = ? and country = ? and region = ? and dob = ?" +
-                        " order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
-                new BeanPropertyRowMapper<>(Test.class), sex, country, region, dob, offset, next);
+    public List<Test> getTest(int offset, int next, String result) {
+        StringBuilder startSql = new StringBuilder("SELECT * FROM Test Where ");
+        String endSql = " order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+
+        ArrayList<Object> allParam = new ArrayList<>();
+        String[] arr = result.split(";");
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals("---")) {
+                startSql.append("1=? ");
+                if (i != 3) startSql.append("and ");
+                allParam.add(1);
+            } else {
+                switch (i) {
+                    case 0 -> {
+                        startSql.append("sex=? and ");
+                        allParam.add(arr[i]);
+                    }
+                    case 1 -> {
+                        startSql.append("country=? and ");
+                        allParam.add(arr[i].replaceAll(",", " "));
+                    }
+                    case 2 -> {
+                        startSql.append("region=? and ");
+                        allParam.add(arr[i].replaceAll(",", " "));
+                    }
+                    case 3 -> {
+                        startSql.append("dob=? ");
+                        allParam.add(arr[i]);
+                    }
+                }
+            }
+        }
+
+        Object dob;
+        try {
+            dob = new SimpleDateFormat("dd.MM.yyyy").parse(allParam.get(3).toString());
+        } catch (Exception ignored) {
+            dob = 1;
+        }
+        return jdbcTemplate.query(startSql + endSql,
+                new BeanPropertyRowMapper<>(Test.class), allParam.get(0), allParam.get(1),
+                allParam.get(2), dob, offset, next);
     }
 
-    public List<Test> getTest(int offset, int next, String sex, String country, String region) {
-        return jdbcTemplate.query("SELECT * FROM Test Where sex = ? and country = ? and region = ? " +
-                        "order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
-                new BeanPropertyRowMapper<>(Test.class), sex, country, region, offset, next);
-    }
-
-    public List<Test> getTest(int offset, int next, String sex, String country) {
-        return jdbcTemplate.query("SELECT * FROM Test Where sex = ? and country = ? " +
-                        "order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
-                new BeanPropertyRowMapper<>(Test.class), sex, country, offset, next);
-    }
-
-    public List<Test> getTest(int offset, int next, String sex) {
-        return jdbcTemplate.query("SELECT * FROM Test Where sex = ? " +
-                        "order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
-                new BeanPropertyRowMapper<>(Test.class), sex, offset, next);
-    }
-
-    public List<Test> getTest(int offset, int next) {
-        return jdbcTemplate.query("SELECT * FROM Test order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
-                new BeanPropertyRowMapper<>(Test.class), offset, next);
-    }
-
-    public List<Country> getAllCountry() {
-        return jdbcTemplate.query("SELECT * FROM Country order by country_id", new BeanPropertyRowMapper<>(Country.class));
-    }
-
-    public List<Region> getAllRegion() {
-        return jdbcTemplate.query("SELECT * FROM Region order by country_id", new BeanPropertyRowMapper<>(Region.class));
+    public List<Count> getTotal() {
+       return jdbcTemplate.query("SELECT COUNT (*) FROM Test", new BeanPropertyRowMapper<>(Count.class));
     }
 
     public void save(Person person) {

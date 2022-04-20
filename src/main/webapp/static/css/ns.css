@@ -117,6 +117,10 @@ select, option {
     border-color: rgb(199, 15, 15) !important;
 }
 
+.my-btn:hover {
+    background-color: rgba(102, 51, 153, 0.7) !important;
+    border-color: rgba(102, 51, 153, 0.7) !important;
+}
 
 #active {
     background-color: rebeccapurple!important;
