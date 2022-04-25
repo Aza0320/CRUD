@@ -30,11 +30,11 @@ public class Region {
         this.code = code;
     }
 
-    public String getName() {
+    public String getR_name() {
         return r_name;
     }
 
-    public void setName(String name) {
+    public void setR_name(String name) {
         this.r_name = name;
     }
 }

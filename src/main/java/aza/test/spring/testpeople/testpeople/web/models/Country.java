@@ -7,9 +7,9 @@ public class Country {
     public Country() {
     }
 
-    public Country(int country_id, String name) {
+    public Country(int country_id, String c_name) {
         this.country_id = country_id;
-        this.c_name = name;
+        this.c_name = c_name;
     }
 
     public int getCountry_id() {
@@ -20,11 +20,11 @@ public class Country {
         this.country_id = country_id;
     }
 
-    public String getName() {
+    public String getC_name() {
         return c_name;
     }
 
-    public void setName(String name) {
-        this.c_name = name;
+    public void setC_name(String c_name) {
+        this.c_name = c_name;
     }
 }

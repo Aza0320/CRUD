@@ -1,80 +1,14 @@
-// let currentPage = document.getElementById("currentPage").innerText
-let currentPage = document.getElementById("currentPage")
+let searchValue = ""
 
 $(document).ready(function () {
-    let pagination = document.getElementById("pagination")
-    if (currentPage.value % 10 == 0) {
-        pagination.remove()
-        let arr = []
-        for (let i = 0; i < 11; i++) {
-            let page = Number(currentPage.value) + i - 4
-            arr.push("<li class=\"page-item\" onclick=\"pagination(this)\">" +
-                "<button class=\"page-link my-btn\" type=\"button\">" + page + "</button>" +
-                "</li>")
-        }
-
-        $("<ul>", {
-            "class": "pagination d-flex justify-content-end",
-            "id": "pagination",
-            html: arr.join("")
-        }).appendTo("#nav")
-    } else {
-        let btn = document.querySelector("#active")
-        btn.id = ""
-    }
-
-    let li = document.querySelectorAll("li.page-item")
-    for (let i = 0; i < li.length; i++) {
-        if (li[i].innerText === currentPage.value) {
-            let active = li[i].children[0]
-            active.id = "active"
-        }
-    }
-})
-
-
-$(document).ready(dt());
-
-function dt() {
-    let g = document.getElementById("findG").value
-    let c = document.getElementById("findC").value
-    let d = document.getElementById("findD").value
-    let r = document.getElementById("findR").value
-    let allParam;
-    let option = document.querySelectorAll("th select option")
-    if (g !== "") {
-        allParam = g + ";"
-        let text
-        if (g === "M") text = "MALE"
-        else text = "FEMALE"
-        for (let i = 0; i < 3; i++) {
-            if (option[i].innerHTML === text) {
-                option[i].setAttribute("selected", "")
-            }
-        }
-    } else allParam = "---;"
-
-    if (c !== "") {
-        allParam = split(allParam, c)
-    } else allParam += "---;"
-
-    if (r !== "") {
-        allParam = split(allParam, r)
-    } else allParam += "---;"
-
-    if (d !== "") {
-        allParam += d + ";"
-    } else allParam += "---;"
-
-    let offset = 100 * currentPage.value
-    let next = 100
-    let url = "http://localhost:8080/testAza/getTest?offset=" + offset + "&next=" + next + "&allParam=" + allParam
-
     $('#table').DataTable({
+            "select": true,
             "scrollX": false,
+            "serverSide": true,
+            "ordering": false,
             "ajax": {
-                "url": url,
-                "dataSrc": ""
+                url: "http://localhost:8080/testAza/testDT",
+                type: "post"
             },
             "columns": [
                 {"data": "id"},
@@ -114,18 +48,37 @@ function dt() {
                     }
                 }
             ],
+
+            initComplete: function () {
+                this.api().columns([5, 6]).every(function () {
+                    let column = this;
+
+                    if ((String(column[0])) === '5') {
+                        $('#search-country')
+                            .on('change', function () {
+                                let val = $.fn.dataTable.util.escapeRegex(this.value);
+                                column.search(val ? val : '', true, false).draw();
+                            });
+                    } else {
+                        $('#table-region-select')
+                            .on('change', function () {
+
+                                alert("ya tut")
+                                $.getJSON("http://localhost:8080/testAza/getRegion", function (data) {
+                                    $.each(data, function (key, val) {
+                                        let value = Object.values(val)[1]
+                                        console.log(value)
+                                    })
+                                })
+                                let val = $.fn.dataTable.util.escapeRegex(this.value);
+                                column.search(val ? val : '', true, false).draw();
+                            });
+                    }
+                });
+            }
         },
     )
-}
-
-function split(allParam, text) {
-    let arr = [text.split(" ")]
-
-    for (let i = 0; i < arr.length; i++) {
-        allParam += arr[i]
-    }
-    return allParam + ";"
-}
+});
 
 $(function () {
     $(".dob").datepicker({
@@ -140,6 +93,10 @@ $(function () {
     });
     dp()
 });
+
+function table_select_change(a) {
+    pushOptions(a, 'table-region-select', '#table-region')
+}
 
 function deleteFind(n) {
     let td = n.parentElement.parentElement.getElementsByTagName("td")[0]
@@ -165,11 +122,3 @@ function viewFind(n) {
     a.setAttribute("href", "http://localhost:8080/people/getPdf/" + td)
     img.setAttribute("src", "http://localhost:8080/people/getImg/" + td)
 }
-
-function pagination(n) {
-    let page = n.childNodes[1].outerText
-    let input = document.getElementById("page")
-
-    input.setAttribute("value", page)
-}
-

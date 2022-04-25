@@ -13,8 +13,9 @@ function pushOptions(country, region, to) {
             let select = document.getElementById(region)
             select.remove()
 
+
             let cl
-            if (region === "regionS") {
+            if (region === "regionS" || region === "table-region-select") {
                 cl = ""
                 optionAR.push("<option value=\"\"></option>")
             } else {
@@ -24,7 +25,6 @@ function pushOptions(country, region, to) {
             $.each(data, function (key, val) {
                 let region = []
                 region.push(Object.values(val)[3])
-
                 for (let j = 0; j < region.length; j++) {
                     optionAR.push(
                         "<option value=\"" + region[j] + "\">" + region [j] + "</option>" + "\n")

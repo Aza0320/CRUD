@@ -2,6 +2,7 @@ package aza.test.spring.testpeople.testpeople.web.dao;
 
 import aza.test.spring.testpeople.testpeople.web.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -69,8 +70,17 @@ public class PersonDAO {
                 allParam.get(2), dob, offset, next);
     }
 
+    public List<Test> gat() {
+        return jdbcTemplate.query("SELECT * FROM Test", new BeanPropertyRowMapper<>(Test.class));
+    }
+
+    public List<Test> getTest(int offset, int next) {
+        return jdbcTemplate.query("SELECT * FROM Test order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ",
+                new BeanPropertyRowMapper<>(Test.class), offset, next);
+    }
+
     public List<Count> getTotal() {
-       return jdbcTemplate.query("SELECT COUNT (*) FROM Test", new BeanPropertyRowMapper<>(Count.class));
+        return jdbcTemplate.query("SELECT COUNT (*) FROM Test", new BeanPropertyRowMapper<>(Count.class));
     }
 
     public void save(Person person) {
@@ -101,5 +111,112 @@ public class PersonDAO {
 
         return jdbcTemplate.query("SELECT c.country_id, c.c_name, r.code, r.r_name FROM Country c INNER JOIN Region r ON c.country_id = r.country_id where c.c_name like ?",
                 new BeanPropertyRowMapper<>(FindRegion.class), name);
+    }
+
+    public List<Country> getCountry() {
+        return jdbcTemplate.query("SELECT * FROM country", new BeanPropertyRowMapper<>(Country.class));
+    }
+
+    public List<Region> getRegion() {
+        return jdbcTemplate.query("SELECT * FROM region", new BeanPropertyRowMapper<>(Region.class));
+    }
+
+    public List<Test> search(String text, int offset, int next, String gender, String country, String region, String date) {
+        StringBuilder search = new StringBuilder();
+        search.append("%").append(text).append("%");
+        ArrayList<Param> list = paramConfig(gender, country, region, date);
+
+        try {
+            return jdbcTemplate.query("SELECT * FROM Test " +
+                            "where id || ' ' || name || ' ' || surname || ' ' || passport || ' ' || sex || ' ' ||" +
+                            " dob || ' ' || country || ' ' || region like ? " +
+                            list.get(0).sql + list.get(1).sql + list.get(2).sql + list.get(3).sql +
+                            "order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY", new BeanPropertyRowMapper<>(Test.class),
+                    search, list.get(0).value, list.get(1).value, list.get(2).value,
+                    new SimpleDateFormat("yyyy-MM-dd").parse(list.get(3).value), offset, next);
+        } catch (ParseException ignored) {
+            return jdbcTemplate.query("SELECT * FROM Test " +
+                            "where id || ' ' || name || ' ' || surname || ' ' || passport || ' ' || sex || ' ' ||" +
+                            " dob || ' ' || country || ' ' || region like ? " +
+                            list.get(0).sql + list.get(1).sql + list.get(2).sql +list.get(3).sql +
+                            "order by id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY", new BeanPropertyRowMapper<>(Test.class),
+                    search, list.get(0).value, list.get(1).value, list.get(2).value, list.get(3).value, offset, next);
+        }
+    }
+
+    public List<Count> filteredCount(String text, String gender, String country, String region, String date) {
+        StringBuilder search = new StringBuilder();
+        search.append("%").append(text).append("%");
+        ArrayList<Param> list = paramConfig(gender, country, region, date);
+
+        try {
+            return jdbcTemplate.query("SELECT COUNT(*) FROM Test " +
+                            "where id || ' ' || name || ' ' || surname || ' ' || passport || ' ' || sex || ' ' ||" +
+                            " dob || ' ' || country || ' ' || region like ? " +
+                            list.get(0).sql + list.get(1).sql + list.get(2).sql + list.get(3).sql, new BeanPropertyRowMapper<>(Count.class),
+                    search, list.get(0).value, list.get(1).value, list.get(2).value, new SimpleDateFormat("yyyy-MM-dd").parse(list.get(3).value));
+        } catch (ParseException ignored) {
+            return jdbcTemplate.query("SELECT COUNT(*) FROM Test " +
+                            "where id || ' ' || name || ' ' || surname || ' ' || passport || ' ' || sex || ' ' ||" +
+                            " dob || ' ' || country || ' ' || region like ? " +
+                            list.get(0).sql + list.get(1).sql + list.get(2).sql + list.get(3).sql, new BeanPropertyRowMapper<>(Count.class),
+                    search, list.get(0).value, list.get(1).value, list.get(2).value, list.get(3).value);
+        }
+    }
+
+    private ArrayList<Param> paramConfig(String gender, String country, String region, String date) {
+        String countrySql;
+        if (!country.isEmpty()) countrySql = "and country like ? ";
+        else {
+            countrySql = "and '1' like ? ";
+            country = "1";
+        }
+        String regionSql;
+        if (!region.isEmpty()) regionSql = "and region like ? ";
+        else {
+            regionSql = "and '1' like ? ";
+            region = "1";
+        }
+        String genderSql;
+        if (!gender.isEmpty()) genderSql = "and sex like ? ";
+        else {
+            genderSql = "and '1' like ? ";
+            gender = "1";
+        }
+        String dobSql;
+        String dob;
+        if (!date.isEmpty()) {
+            dobSql = "and dob = ? ";
+            String[] arr = date.replace("\\", "").split("\\.");
+            dob = arr[2] + "-" + arr[1] + "-" + arr[0];
+        } else {
+            dobSql = "and '1' like ? ";
+            dob = "1";
+        }
+        ArrayList<Param> list = new ArrayList<>();
+        list.add(new Param(countrySql, country));
+        list.add(new Param(regionSql, region));
+        list.add(new Param(genderSql, gender));
+        list.add(new Param(dobSql, dob));
+
+        return list;
+    }
+
+    static class Param {
+        private String sql;
+        private String value;
+
+        public Param(String sql, String value) {
+            this.sql = sql;
+            this.value = value;
+        }
+
+        public String getSql() {
+            return sql;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 }

@@ -45,7 +45,8 @@
             <div class="input-group mb-3">
                 <form:label path="toDob" class="input-group-text">
                     DATE OF BIRTHDAY </form:label>
-                <form:input path="toDob" data-provide="datepicker" class="input-group-text dob" value=""/>
+                <form:input readonly="true" path="toDob" data-provide="datepicker" class="input-group-text dob"
+                            value=""/>
             </div>
 
             <div class="input-group mb-3">
@@ -60,7 +61,8 @@
             <div class="input-group mb-3">
                 <form:label path="country" class="input-group-text">
                     COUNTRY </form:label>
-                <select onchange="pushOptions(this.value, 'region', '#rd')" name="country" class="input-group-text" id="country">
+                <select onchange="pushOptions(this.value, 'region', '#rd')" name="country" class="input-group-text"
+                        id="country">
                     <option value="Toshkent shahar">Toshkent shahar</option>
                     <option value="Toshkent viloyati">Toshkent viloyati</option>
                     <option value="Andijon viloyati">Andijon viloyati</option>
@@ -100,13 +102,15 @@
             <div class="input-group mb-3 ">
                 <form:label path="toDoi" class="input-group-text">
                     DATE OF ISSUE </form:label>
-                <form:input path="toDoi" data-provide="datepicker" class="input-group-text datepicker" value=""/>
+                <form:input readonly="true" path="toDoi" data-provide="datepicker" class="input-group-text datepicker"
+                            value=""/>
             </div>
 
             <div class="input-group mb-3 ">
                 <form:label path="toDoe" class="input-group-text">
                     DATE OF EXPIRY </form:label>
-                <form:input path="toDoe" data-provide="datepicker" class="input-group-text datepicker" value=""/>
+                <form:input readonly="true" path="toDoe" data-provide="datepicker" class="input-group-text datepicker"
+                            value=""/>
             </div>
 
             <input type="file" name="file"/>
@@ -120,30 +124,99 @@
         <h1>INFORMATION OF PEOPLE</h1>
     </div>
 
-        <input type="hidden" value="${findG}" id="findG">
-        <input type="hidden" value="${findC}" id="findC">
-        <input type="hidden" value="${findR}" id="findR">
-        <input type="hidden" value="${findD}" id="findD">
+    <input type="hidden" value="${findG}" id="findG">
+    <input type="hidden" value="${findC}" id="findC">
+    <input type="hidden" value="${findR}" id="findR">
+    <input type="hidden" value="${findD}" id="findD">
 
     <%--    Table Form  --%>
     <div class="tablica text-center">
         <form:form method="post" action="/people/find" modelAttribute="person">
             <table id="table" class="table table-light table-striped align-middle" style="width: 100%">
                 <thead class="align-middle">
+                    <%--                <tr>--%>
+                    <%--                    <th></th>--%>
+                    <%--                    <th></th>--%>
+                    <%--                    <th></th>--%>
+                    <%--                    <th></th>--%>
+                    <%--                    <th>--%>
+                    <%--                        <select name="sex">--%>
+                    <%--                            <option value=""></option>--%>
+                    <%--                            <option value="M">MALE</option>--%>
+                    <%--                            <option value="W">FEMALE</option>--%>
+                    <%--                        </select>--%>
+                    <%--                    </th>--%>
+                    <%--                    <th>--%>
+                    <%--                        <select onchange="pushOptions(this.value, 'regionS', '#th')" name="country" id="countryS">--%>
+                    <%--                            <option value=""></option>--%>
+                    <%--                            <option value="Toshkent shahar">Toshkent shahar</option>--%>
+                    <%--                            <option value="Toshkent viloyati">Toshkent viloyati</option>--%>
+                    <%--                            <option value="Andijon viloyati">Andijon viloyati</option>--%>
+                    <%--                            <option value="Buxoro viloyati">Buxoro viloyati</option>--%>
+                    <%--                            <option value="Jizzax viloyati">Jizzax viloyati</option>--%>
+                    <%--                            <option value="Qashqadaryo viloyati">Qashqadaryo viloyati</option>--%>
+                    <%--                            <option value="Navoiy viloyati">Navoiy viloyati</option>--%>
+                    <%--                            <option value="Namangan viloyati">Namangan viloyati</option>--%>
+                    <%--                            <option value="Samarqand viloyati">Samarqand viloyati</option>--%>
+                    <%--                            <option value="Surxondaryo viloyati">Surxondaryo viloyati</option>--%>
+                    <%--                            <option value="Sirdaryo viloyati">Sirdaryo viloyati</option>--%>
+                    <%--                            <option value="Farg'ona viloyati">Farg'ona viloyati</option>--%>
+                    <%--                            <option value="Xorazm viloyati">Xorazm viloyati</option>--%>
+                    <%--                            <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>--%>
+                    <%--                        </select>--%>
+                    <%--                    </th>--%>
+                    <%--                    <th id="th">--%>
+                    <%--                        <select class="ui-state-disabled" name="region" id="regionS">--%>
+                    <%--                            <option value=""></option>--%>
+                    <%--                            <option value="Shayxontohur tumani">Shayxontohur tumani</option>--%>
+                    <%--                            <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>--%>
+                    <%--                            <option value="Yunusobod tumani">Yunusobod tumani</option>--%>
+                    <%--                            <option value="Chilonzor tumani">Chilonzor tumani</option>--%>
+                    <%--                            <option value="Yashnobod tumani">Yashnobod tumani</option>--%>
+                    <%--                            <option value="Olmazor tumani">Olmazor tumani</option>--%>
+                    <%--                            <option value="Bektemir tumani">Bektemir tumani</option>--%>
+                    <%--                            <option value="Yangihayot tumani">Yangihayot tumani</option>--%>
+                    <%--                            <option value="Mirobod tumani">Mirobod tumani</option>--%>
+                    <%--                            <option value="Yakkasaroy tumani">Yakkasaroy tumani</option>--%>
+                    <%--                            <option value="Sergeli tumani">Sergeli tumani</option>--%>
+                    <%--                            <option value="Uchtepa tumani">Uchtepa tumani</option>--%>
+                    <%--                        </select>--%>
+                    <%--                    </th>--%>
+                    <%--                    <th>--%>
+                    <%--                        <input name="toDob" data-provide="datepicker" style="text-align: center" class="datepicker"--%>
+                    <%--                               placeholder="Select" value=""/>--%>
+                    <%--                    </th>--%>
+                    <%--                    <th>--%>
+                    <%--                        <div class="d-flex justify-content-evenly">--%>
+                    <%--                            <button class="btn btn-outline-primary find" type="submit">--%>
+                    <%--                                FIND--%>
+                    <%--                            </button>--%>
+
+                    <%--                            <button class="btn btn-outline-dark find" type="button">--%>
+                    <%--                                Cancel--%>
+                    <%--                            </button>--%>
+                    <%--                        </div>--%>
+                    <%--                    </th>--%>
+                    <%--                </tr>--%>
+                <tr>
+                    <th>id</th>
+                    <th>PASSPORT</th>
+                    <th>Name</th>
+                    <th>surname</th>
+                    <th>gender</th>
+                    <th>country</th>
+                    <th>region</th>
+                    <th>Date of birthday</th>
+                    <th>MANIPULATION BUTTONS</th>
+                </tr>
                 <tr>
                     <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th>
-                        <select name="sex">
-                            <option value=""></option>
-                            <option value="M">MALE</option>
-                            <option value="W">FEMALE</option>
-                        </select>
-                    </th>
-                    <th>
-                        <select onchange="pushOptions(this.value, 'regionS', '#th')" name="country" id="countryS">
+                    <th>gender</th>
+                    <th id="table-country">
+                        <select onchange="table_select_change(this.value)" id="search-country">
                             <option value=""></option>
                             <option value="Toshkent shahar">Toshkent shahar</option>
                             <option value="Toshkent viloyati">Toshkent viloyati</option>
@@ -161,49 +234,14 @@
                             <option value="Qoraqalpog'iston Resp.">Qoraqalpog'iston Resp.</option>
                         </select>
                     </th>
-                    <th id="th">
-                        <select class="ui-state-disabled" name="region" id="regionS">
+                    <th id="table-region">
+                        <select onchange="pushOptions(this.value, '', '#table-region')" id="table-region-select">
                             <option value=""></option>
-                            <option value="Shayxontohur tumani">Shayxontohur tumani</option>
-                            <option value="Mirzo Ulug'bek tumani">Mirzo Ulug'bek tumani</option>
-                            <option value="Yunusobod tumani">Yunusobod tumani</option>
-                            <option value="Chilonzor tumani">Chilonzor tumani</option>
-                            <option value="Yashnobod tumani">Yashnobod tumani</option>
-                            <option value="Olmazor tumani">Olmazor tumani</option>
-                            <option value="Bektemir tumani">Bektemir tumani</option>
-                            <option value="Yangihayot tumani">Yangihayot tumani</option>
-                            <option value="Mirobod tumani">Mirobod tumani</option>
-                            <option value="Yakkasaroy tumani">Yakkasaroy tumani</option>
-                            <option value="Sergeli tumani">Sergeli tumani</option>
-                            <option value="Uchtepa tumani">Uchtepa tumani</option>
+                            <option value="Toshkent shahar">Toshkent shahar</option>
                         </select>
                     </th>
-                    <th>
-                        <input name="toDob" data-provide="datepicker" style="text-align: center" class="datepicker"
-                               placeholder="Select" value=""/>
-                    </th>
-                    <th>
-                        <div class="d-flex justify-content-evenly">
-                            <button class="btn btn-outline-primary find" type="submit">
-                                FIND
-                            </button>
-
-                            <button class="btn btn-outline-dark find" type="button">
-                                Cancel
-                            </button>
-                        </div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>id</th>
-                    <th>PASSPORT</th>
-                    <th>Name</th>
-                    <th>surname</th>
-                    <th>gender</th>
-                    <th>country</th>
-                    <th>region</th>
                     <th>Date of birthday</th>
-                    <th>MANIPULATION BUTTONS</th>
+                    <th></th>
                 </tr>
                 </thead>
 
@@ -258,54 +296,6 @@
             </div>
         </div>
     </div>
-
-    <br>
-    <br>
-    <input type="hidden" value="${currentPage}" id="currentPage">
-
-    <form:form method="post" action="/people/currentPage" modelAttribute="person">
-        <form:hidden path="country" value="" id="page"/>
-        <nav aria-label="Page" id="nav">
-            <ul class="pagination d-flex justify-content-end" id="pagination">
-                <li class="page-item" onclick="pagination(this)" id="startPag">
-                    <button class="page-link my-btn" type="submit" id="active">1</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">2</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">3</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">4</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="button">5</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">6</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">7</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">8</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn" type="submit">9</button>
-                </li>
-                <li class="page-item" onclick="pagination(this); changePages()">
-                    <button class="page-link my-btn" type="submit">10</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)">
-                    <button class="page-link my-btn ui-checkboxradio-disabled" type="button">...</button>
-                </li>
-                <li class="page-item" onclick="pagination(this)" id="endPag">
-                    <button class="page-link my-btn" type="submit">11</button>
-                </li>
-            </ul>
-        </nav>
-    </form:form>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -318,3 +308,21 @@
 
 </body>
 </html>
+
+
+<%--
+    let column = this;
+                    let list = []
+                    if (i == 1) {
+                        $.getJSON("http://localhost:8080/testAza/getCountry", function (data) {
+                            $.each(data, function (key, val) {
+                                let value = Object.values(val)[1]
+                                list.push(value)
+                            })
+                        })
+                    }
+                    for (let j = 0; j < list.length; j++) {
+                        column.search(list[j] ? list[j] : '', true, false).draw();
+                    }
+
+                    --%>
