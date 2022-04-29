@@ -198,7 +198,6 @@ public class PersonDAO {
         list.add(new Param(regionSql, region));
         list.add(new Param(genderSql, gender));
         list.add(new Param(dobSql, dob));
-
         return list;
     }
 

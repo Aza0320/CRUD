@@ -93,8 +93,9 @@ public class PersonServices {
 
         Table table = new Table(new float[]{150, 500});
         Cell cell1 = new Cell();
-        File file = new ClassPathResource("static/images/1.jpg").getFile();
-        String path = file.toString().split("target")[0] + "src/main/resources/static/images/"+ person.getId() + ".jpg";
+        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
+        String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + person.getSex() + "/" + person.getRegion() + ".jpg";
+        System.out.println(path);
         ImageData data = ImageDataFactory.create(path);
         Image img = new Image(data);
         img.setHeight(450);

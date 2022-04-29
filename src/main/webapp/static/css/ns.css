@@ -132,6 +132,32 @@ select, option {
     font-size: 18px!important;
 }
 
+.table-date {
+    text-align: center;
+    border-color: rgb(133, 133, 133);
+    border-width: 1px;
+    border-style: solid;
+    font-size: 18px!important;
+}
+
+::-ms-clear {
+    display: none;
+}
+
+.form-control-clear {
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+
+/* Custom page CSS (Not required)
+--------------------------------------------- */
+
+#exampleContainer {
+    padding: 50px;
+}
+
 
 
 

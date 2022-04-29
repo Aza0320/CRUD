@@ -76,9 +76,6 @@ public class TestRequest {
 
         String dob = "columns[7][search][value]";
 
-        System.out.println(search.get(region));
-        System.out.println(search.get(country));
-
         Map<String, Object> map = new HashMap<>();
         map.put("draw", draw);
         map.put("recordsTotal", personDAO.getTotal().get(0).getCount());

@@ -13,11 +13,15 @@ function pushOptions(country, region, to) {
             let select = document.getElementById(region)
             select.remove()
 
-
+            let func = ""
             let cl
-            if (region === "regionS" || region === "table-region-select") {
+            if (region === "regionS") {
                 cl = ""
                 optionAR.push("<option value=\"\"></option>")
+            }else if (region === "table-region-select") {
+                cl = ""
+                optionAR.push("<option value=\"\"></option>")
+                func = "table_select_region(this.value)"
             } else {
                 cl = "input-group-text"
             }
@@ -35,8 +39,10 @@ function pushOptions(country, region, to) {
                 "class": cl,
                 "name": "region",
                 "id": region,
+                "onchange": func,
                 html: optionAR.join("")
             }).appendTo(to)
+
         })
     } else {
         let select = document.getElementById(region)

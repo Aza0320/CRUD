@@ -20,7 +20,6 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/people")
@@ -40,11 +39,6 @@ public class PeopleController {
 
     @GetMapping()
     public String index(@ModelAttribute("person") Person person, Model model) {
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("findG", gender);
-        model.addAttribute("findC", country);
-        model.addAttribute("findR", region);
-        model.addAttribute("findD", dob);
         return "/index";
     }
 
@@ -54,7 +48,7 @@ public class PeopleController {
         personDAO.save(person);
 
         int fileName = personDAO.getPersonByPassport(person.getPassport()).getId();
-        File file = new ClassPathResource("static/images/1.jpg").getFile();
+        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
         String path = file.toString().split("target")[0] + "src/main/resources/static/images/";
         for (Part part : request.getParts()) {
             part.write(path + fileName + ".jpg");
@@ -95,7 +89,7 @@ public class PeopleController {
     @PostMapping("/delete")
     public String delete(Person person, BindingResult bindingResult) throws IOException {
         if (bindingResult.hasErrors()) return "edit";
-        File file = new ClassPathResource("static/images/1.jpg").getFile();
+        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
         String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + Integer.parseInt(person.getSurname()) + ".jpg";
         File delete = new File(path);
         if (delete.delete()) personDAO.delete(Integer.parseInt(person.getSurname()));

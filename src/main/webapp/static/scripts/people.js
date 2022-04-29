@@ -1,4 +1,4 @@
-let searchValue = ""
+let filterApi
 
 $(document).ready(function () {
     $('#table').DataTable({
@@ -50,34 +50,36 @@ $(document).ready(function () {
             ],
 
             initComplete: function () {
-                this.api().columns([5, 6]).every(function () {
-                    let column = this;
-
-                    if ((String(column[0])) === '5') {
-                        $('#search-country')
-                            .on('change', function () {
-                                let val = $.fn.dataTable.util.escapeRegex(this.value);
-                                column.search(val ? val : '', true, false).draw();
-                            });
-                    } else {
-                        $('#table-region-select')
-                            .on('change', function () {
-
-                                alert("ya tut")
-                                $.getJSON("http://localhost:8080/testAza/getRegion", function (data) {
-                                    $.each(data, function (key, val) {
-                                        let value = Object.values(val)[1]
-                                        console.log(value)
-                                    })
-                                })
-                                let val = $.fn.dataTable.util.escapeRegex(this.value);
-                                column.search(val ? val : '', true, false).draw();
-                            });
-                    }
-                });
+                filterApi = this
+                searching('#search-gender', 'change', 4)
+                searching('#search-country', 'change', 5)
             }
+
         },
     )
+});
+
+function searching(a, c, b) {
+    filterApi.api().columns([b]).every(function () {
+        let column = this;
+        $(a)
+            .on(c, function () {
+                let val = $.fn.dataTable.util.escapeRegex(this.value);
+                console.log(this.value)
+                column.search(val ? val : '', true, false).draw();
+            });
+    })
+}
+
+$('.has-clear input[type="text"]').on('input propertychange', function() {
+    var $this = $(this);
+    var visible = Boolean($this.val());
+    $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
+}).trigger('propertychange');
+
+$('.form-control-clear').click(function() {
+    $(this).siblings('input[type="text"]').val('')
+        .trigger('propertychange').focus();
 });
 
 $(function () {
@@ -94,8 +96,13 @@ $(function () {
     dp()
 });
 
-function table_select_change(a) {
+function table_select_region(a) {
+    filterApi.api().columns([6]).search(a ? a : '', true, false).draw()
+}
+
+function table_select_country(a) {
     pushOptions(a, 'table-region-select', '#table-region')
+    filterApi.api().columns([6]).search('' ? '' : '', true, false).draw()
 }
 
 function deleteFind(n) {
@@ -116,7 +123,7 @@ function editThis(n) {
 }
 
 function viewFind(n) {
-    let td = n.parentElement.parentElement.getElementsByTagName("td").item(0).innerText
+    let td = n.parentElement.parentElement.parentElement.getElementsByTagName("td").item(0).innerText
     let img = document.getElementById("viewImg")
     let a = document.getElementById("download")
     a.setAttribute("href", "http://localhost:8080/people/getPdf/" + td)

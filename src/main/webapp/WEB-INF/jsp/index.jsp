@@ -20,7 +20,6 @@
 <body>
 
 <div class="m-5">
-
     <%--    Save Form   --%>
     <div class="forma">
         <form:form method="post" action="/people/addPerson" enctype="multipart/form-data" modelAttribute="person">
@@ -124,11 +123,6 @@
         <h1>INFORMATION OF PEOPLE</h1>
     </div>
 
-    <input type="hidden" value="${findG}" id="findG">
-    <input type="hidden" value="${findC}" id="findC">
-    <input type="hidden" value="${findR}" id="findR">
-    <input type="hidden" value="${findD}" id="findD">
-
     <%--    Table Form  --%>
     <div class="tablica text-center">
         <form:form method="post" action="/people/find" modelAttribute="person">
@@ -214,9 +208,15 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th>gender</th>
-                    <th id="table-country">
-                        <select onchange="table_select_change(this.value)" id="search-country">
+                    <th>
+                        <select id="search-gender">
+                            <option value=""></option>
+                            <option value="W">W</option>
+                            <option value="M">M</option>
+                        </select>
+                    </th>
+                    <th id="table-country" class="searching">
+                        <select onchange="table_select_country(this.value)" id="search-country">
                             <option value=""></option>
                             <option value="Toshkent shahar">Toshkent shahar</option>
                             <option value="Toshkent viloyati">Toshkent viloyati</option>
@@ -235,12 +235,16 @@
                         </select>
                     </th>
                     <th id="table-region">
-                        <select onchange="pushOptions(this.value, '', '#table-region')" id="table-region-select">
+                        <select id="table-region-select">
                             <option value=""></option>
-                            <option value="Toshkent shahar">Toshkent shahar</option>
+                            <option value="Toshkent viloyati">Toshkent viloyati</option>
                         </select>
                     </th>
-                    <th>Date of birthday</th>
+                    <th>
+                        <input onclick="searching('#search-dob', 'change', 7)" id="search-dob"
+                               data-provide="datepicker" class="datepicker table-date" value="">
+
+                    </th>
                     <th></th>
                 </tr>
                 </thead>
