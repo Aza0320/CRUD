@@ -25,12 +25,6 @@ import java.util.ArrayList;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonDAO personDAO;
-    private int currentPage = 1;
-    private String gender;
-    private String country;
-    private String region;
-    private String dob;
-
 
     @Autowired
     public PeopleController(PersonDAO personDAO) {
@@ -38,7 +32,7 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index(@ModelAttribute("person") Person person, Model model) {
+    public String index(@ModelAttribute("person") Person person) {
         return "/index";
     }
 
@@ -48,8 +42,8 @@ public class PeopleController {
         personDAO.save(person);
 
         int fileName = personDAO.getPersonByPassport(person.getPassport()).getId();
-        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
-        String path = file.toString().split("target")[0] + "src/main/resources/static/images/";
+        File file = new ClassPathResource("static/images/Toshkent viloyati/M/Yangiyo'l shahar.jpg").getFile();
+        String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + person.getCountry() + "/" + person.getSex() + "/";
         for (Part part : request.getParts()) {
             part.write(path + fileName + ".jpg");
         }
@@ -68,10 +62,9 @@ public class PeopleController {
 
     @PostMapping("/edit")
     public String edit(@ModelAttribute("person") Person person, BindingResult bindingResult, Model model) {
-        ArrayList<Person> list = new ArrayList<>(personDAO.index());
+        if (bindingResult.hasErrors()) return "/show";
 
-        Person editPerson = list.stream().filter(x -> x.getId() == person.getId()).findAny().orElse(null);
-        assert editPerson != null;
+        Person editPerson = personDAO.getPerson(person.getId());
 
         model.addAttribute("name", editPerson.getName());
         model.addAttribute("id", editPerson.getId());
@@ -87,13 +80,17 @@ public class PeopleController {
     }
 
     @PostMapping("/delete")
-    public String delete(Person person, BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()) return "edit";
-        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
-        String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + Integer.parseInt(person.getSurname()) + ".jpg";
-        File delete = new File(path);
-        if (delete.delete()) personDAO.delete(Integer.parseInt(person.getSurname()));
-        else System.out.println("File not found");
+    public String delete(Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "/show";
+        try {
+            File file = new ClassPathResource("static/images/Toshkent viloyati/M/Yangiyo'l shahar.jpg").getFile();
+            String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + person.getCountry() + "/" + person.getSex() + "/" + person.getRegion() + ".jpg";
+            File delete = new File(path);
+            if (delete.delete()) personDAO.delete(Integer.parseInt(person.getSurname()));
+            else System.out.println("File not found");
+        } catch (Exception ignored) {
+        }
+
         personDAO.delete(Integer.parseInt(person.getSurname()));
         return "redirect:/people";
     }
@@ -110,31 +107,5 @@ public class PeopleController {
     byte[] getImg(@PathVariable String id) throws Exception {
         Person person = personDAO.getPerson(Integer.parseInt(id));
         return PersonServices.createImg(PersonServices.createPDF(person), person);
-    }
-
-    @PostMapping("/currentPage")
-    public String changePage(@ModelAttribute("person") Person person) {
-        currentPage = Integer.parseInt(person.getCountry());
-        return "redirect:/people";
-    }
-
-    @PostMapping("/find")
-    public String find(@ModelAttribute("person") Person person) {
-        gender = person.getSex();
-        region = person.getRegion();
-        country = person.getCountry();
-        dob = person.getDobString();
-
-        return "redirect:/people";
-    }
-
-    @PostMapping("/cancel")
-    public String cancel(@ModelAttribute("person") Person person) {
-        gender = "";
-        region = "";
-        country = "";
-        dob = null;
-
-        return "redirect:/people";
     }
 }

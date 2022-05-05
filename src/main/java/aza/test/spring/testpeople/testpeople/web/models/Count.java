@@ -6,10 +6,6 @@ public class Count {
     public Count() {
     }
 
-    public Count(int count) {
-        this.total = count;
-    }
-
     public int getCount() {
         return total;
     }

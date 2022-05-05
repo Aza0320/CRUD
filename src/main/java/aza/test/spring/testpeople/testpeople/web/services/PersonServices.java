@@ -93,9 +93,12 @@ public class PersonServices {
 
         Table table = new Table(new float[]{150, 500});
         Cell cell1 = new Cell();
-        File file = new ClassPathResource("static/images/M/Yangiyo'l shahar.jpg").getFile();
-        String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + person.getSex() + "/" + person.getRegion() + ".jpg";
-        System.out.println(path);
+        File file = new ClassPathResource("static/images/Andijon viloyati/M/Andijon shahar.jpg").getFile();
+        String path = file.toString().split("target")[0] + "src/main/resources/static/images/" + person.getCountry() + "/" + person.getSex() + "/";
+
+        if (person.getId() >= 20046) path += person.getId() + ".jpg";
+        else path += person.getRegion() + ".jpg";
+
         ImageData data = ImageDataFactory.create(path);
         Image img = new Image(data);
         img.setHeight(450);
@@ -169,7 +172,7 @@ public class PersonServices {
         PDFFile pdf = new PDFFile(buf);
         PDFPage page = pdf.getPage(0);
 
-        Rectangle rect = new Rectangle(0, 0, 700,1000);
+        Rectangle rect = new Rectangle(0, 0, 700, 1000);
         BufferedImage bufferedImage = new BufferedImage(rect.width, rect.height, BufferedImage.TYPE_INT_RGB);
 
         java.awt.Image image = page.getImage(rect.width, rect.height, rect, null, true, true);

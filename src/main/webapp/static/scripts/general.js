@@ -8,7 +8,7 @@ function pushOptions(country, region, to) {
             country = country.split(" ")[0] + "v1"
         }
 
-        $.getJSON("http://localhost:8080/testAza/getCountry/" + country, function (data) {
+        $.getJSON("http://localhost:8080/peopleRequests/getCountry/" + country, function (data) {
             let optionAR = []
             let select = document.getElementById(region)
             select.remove()

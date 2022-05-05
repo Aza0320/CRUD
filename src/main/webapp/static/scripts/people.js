@@ -7,7 +7,7 @@ $(document).ready(function () {
             "serverSide": true,
             "ordering": false,
             "ajax": {
-                url: "http://localhost:8080/testAza/testDT",
+                url: "http://localhost:8080/peopleRequests/peopleDT",
                 type: "post"
             },
             "columns": [
@@ -71,16 +71,10 @@ function searching(a, c, b) {
     })
 }
 
-$('.has-clear input[type="text"]').on('input propertychange', function() {
-    var $this = $(this);
-    var visible = Boolean($this.val());
-    $this.siblings('.form-control-clear').toggleClass('hidden', !visible);
-}).trigger('propertychange');
-
-$('.form-control-clear').click(function() {
-    $(this).siblings('input[type="text"]').val('')
-        .trigger('propertychange').focus();
-});
+function resetSelect() {
+    for (let i = 4; i < 8; i++)
+        filterApi.api().columns([i]).search('' ? '' : '', true, false).draw()
+}
 
 $(function () {
     $(".dob").datepicker({
@@ -106,7 +100,7 @@ function table_select_country(a) {
 }
 
 function deleteFind(n) {
-    let td = n.parentElement.parentElement.getElementsByTagName("td")[0]
+    let td = n.parentElement.parentElement.parentElement.getElementsByTagName("td")[0]
     let b = document.getElementById("delete")
     b.value = td.textContent;
 }
@@ -117,7 +111,7 @@ function deleteCancel() {
 }
 
 function editThis(n) {
-    let td = n.parentElement.parentElement.getElementsByTagName("td")[0]
+    let td = n.parentElement.parentElement.parentElement.getElementsByTagName("td")[0]
     let b = document.getElementById("edit")
     b.value = td.textContent;
 }
@@ -129,3 +123,5 @@ function viewFind(n) {
     a.setAttribute("href", "http://localhost:8080/people/getPdf/" + td)
     img.setAttribute("src", "http://localhost:8080/people/getImg/" + td)
 }
+
+

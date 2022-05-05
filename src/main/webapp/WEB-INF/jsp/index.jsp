@@ -125,7 +125,7 @@
 
     <%--    Table Form  --%>
     <div class="tablica text-center">
-        <form:form method="post" action="/people/find" modelAttribute="person">
+        <form:form method="post" action="/people/edit" modelAttribute="person">
             <table id="table" class="table table-light table-striped align-middle" style="width: 100%">
                 <thead class="align-middle">
                     <%--                <tr>--%>
@@ -245,15 +245,17 @@
                                data-provide="datepicker" class="datepicker table-date" value="">
 
                     </th>
-                    <th></th>
+                    <th>
+                        <button class="btn btn-outline-dark" type="reset" onclick="resetSelect()">
+                            Clear
+                        </button>
+                    </th>
                 </tr>
                 </thead>
 
-                <form:form method="post" action="/people/edit" modelAttribute="person">
-                    <tbody>
-                    </tbody>
-                    <form:hidden value="" path="id" id="edit"/>
-                </form:form>
+                <tbody>
+                </tbody>
+                <form:hidden value="" path="id" id="edit"/>
             </table>
         </form:form>
     </div>
